@@ -1,20 +1,30 @@
 .ws-stats {
+  width: 100%;
+  overflow: hidden;
   border-top: 1px solid var(--color-divider);
   border-bottom: 1px solid var(--color-divider);
   background: rgba(35, 37, 50, 0.35);
 }
 
-.ws-stats__inner {
-  max-width: 1160px;
-  margin: 0 auto;
-  padding: 22px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 18px;
+.ws-stats__track {
+  display: flex;
+  width: max-content;
+  animation: wsStatsMarquee 24s linear infinite;
+}
+
+.ws-stats__set {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 0;
+  padding-right: 70px;
 }
 
 .ws-stats__item {
-  min-width: 0;
+  min-width: 180px;
+  padding: 22px 35px;
+  border-right: 1px solid var(--color-divider);
+  flex-shrink: 0;
 }
 
 .ws-stats__value {
@@ -24,8 +34,65 @@
 }
 
 .ws-stats__label {
+  margin-top: 3px;
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-neutral-500);
+  white-space: nowrap;
+}
+
+
+/* =========================================
+   MARQUEE ANIMATION
+========================================= */
+
+@keyframes wsStatsMarquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .ws-stats__track {
+    animation-duration: 20s;
+  }
+
+  .ws-stats__set {
+    padding-right: 45px;
+  }
+
+  .ws-stats__item {
+    min-width: 150px;
+    padding: 18px 25px;
+  }
+
+  .ws-stats__value {
+    font-size: 23px;
+  }
+
+  .ws-stats__label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+  }
+}
+
+
+/* =========================================
+   REDUCE MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .ws-stats__track {
+    animation: none;
+  }
 }

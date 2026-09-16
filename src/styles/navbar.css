@@ -10,6 +10,7 @@
   width: 100%;
 
   background: rgba(18, 20, 31, 0.82);
+
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 
@@ -27,7 +28,6 @@
   align-items: center;
   gap: 18px;
 }
-
 
 /* =========================================
    BRAND
@@ -82,7 +82,6 @@
   color: var(--color-neutral-500);
 }
 
-
 /* =========================================
    SPACER
    ========================================= */
@@ -91,9 +90,8 @@
   flex: 1;
 }
 
-
 /* =========================================
-   NAVIGATION
+   DESKTOP NAVIGATION
    ========================================= */
 
 .ws-navbar__nav {
@@ -102,8 +100,6 @@
   justify-content: flex-end;
 
   gap: 4px;
-
-  flex-wrap: wrap;
 }
 
 .ws-navbar__link {
@@ -134,9 +130,8 @@
   background: var(--color-neutral-900);
 }
 
-
 /* =========================================
-   GAME MASTER BUTTON
+   GAME MASTER
    ========================================= */
 
 .ws-navbar__admin {
@@ -178,83 +173,217 @@
   background: var(--color-accent-900);
 }
 
-
 /* =========================================
-   RESPONSIVE
+   MOBILE MENU BUTTON
    ========================================= */
 
-@media (max-width: 768px) {
-  .ws-navbar__inner {
-    padding: 10px 16px;
+.ws-navbar__menu-button {
+  display: none;
 
-    gap: 12px;
+  width: 38px;
+  height: 38px;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border: 1px solid var(--color-neutral-800);
+  border-radius: var(--radius-sm);
+
+  background: transparent;
+
+  color: var(--color-neutral-300);
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.ws-navbar__menu-button:hover {
+  color: #e6c07a;
+  border-color: rgba(230, 192, 122, 0.45);
+  background: rgba(230, 192, 122, 0.05);
+}
+
+/* =========================================
+   MOBILE MENU
+   ========================================= */
+
+.ws-navbar__mobile-menu {
+  display: none;
+
+  overflow: hidden;
+
+  border-top: 1px solid
+    rgba(255, 255, 255, 0.04);
+}
+
+.ws-navbar__mobile-nav {
+  max-width: 1160px;
+  margin: 0 auto;
+
+  padding: 8px 16px 14px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.ws-navbar__mobile-link {
+  display: flex;
+  align-items: center;
+
+  min-height: 44px;
+
+  padding: 10px 4px;
+
+  border-bottom: 1px solid
+    rgba(255, 255, 255, 0.05);
+
+  color: var(--color-neutral-300);
+
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  text-decoration: none;
+}
+
+.ws-navbar__mobile-link:hover {
+  color: #e6c07a;
+}
+
+.ws-navbar__mobile-admin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  width: 100%;
+
+  margin-top: 12px;
+  padding: 11px 14px;
+
+  border: 1px solid var(--color-neutral-800);
+  border-radius: var(--radius-sm);
+
+  background: transparent;
+
+  color: var(--color-neutral-300);
+
+  font-family: var(--font-body);
+  font-size: 11px;
+
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+}
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 900px) {
+  .ws-navbar__inner {
+    padding: 10px 18px;
   }
 
   .ws-navbar__nav {
-    gap: 2px;
+    gap: 1px;
   }
 
   .ws-navbar__link {
-    padding: 6px 8px;
-
+    padding: 7px 8px;
     font-size: 10px;
   }
 
   .ws-navbar__admin {
-    padding: 6px 9px;
-
+    padding: 7px 9px;
     font-size: 10px;
   }
 }
 
+/* =========================================
+   MOBILE
+   ========================================= */
 
-@media (max-width: 560px) {
+@media (max-width: 700px) {
   .ws-navbar__inner {
-    align-items: flex-start;
-
-    flex-wrap: wrap;
+    padding: 9px 16px;
   }
 
-  .ws-navbar__brand {
-    flex: 1;
+  .ws-navbar__nav--desktop {
+    display: none;
   }
 
   .ws-navbar__spacer {
     display: none;
   }
 
-  .ws-navbar__nav {
-    width: 100%;
-
-    justify-content: flex-start;
-
-    padding-top: 4px;
+  .ws-navbar__brand {
+    flex: 1;
   }
 
-  .ws-navbar__link {
-    padding: 7px 8px;
+  .ws-navbar__menu-button {
+    display: inline-flex;
   }
 
-  .ws-navbar__admin {
-    margin-left: auto;
+  .ws-navbar__mobile-menu {
+    display: block;
   }
-}
 
+  .ws-navbar__logo {
+    width: 32px;
+    height: 32px;
+  }
 
-@media (max-width: 380px) {
   .ws-navbar__name {
-    font-size: 12px;
+    font-size: 13px;
+    letter-spacing: 0.19em;
   }
 
   .ws-navbar__subtitle {
     font-size: 8px;
+    letter-spacing: 0.15em;
+  }
+}
+
+/* =========================================
+   SMALL PHONES
+   ========================================= */
+
+@media (max-width: 380px) {
+  .ws-navbar__inner {
+    padding: 8px 13px;
   }
 
-  .ws-navbar__link {
-    font-size: 9px;
+  .ws-navbar__logo {
+    width: 30px;
+    height: 30px;
   }
 
-  .ws-navbar__admin {
-    font-size: 9px;
+  .ws-navbar__name {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+  }
+
+  .ws-navbar__subtitle {
+    font-size: 7px;
+    letter-spacing: 0.12em;
+  }
+
+  .ws-navbar__menu-button {
+    width: 35px;
+    height: 35px;
+  }
+
+  .ws-navbar__mobile-nav {
+    padding-left: 13px;
+    padding-right: 13px;
   }
 }

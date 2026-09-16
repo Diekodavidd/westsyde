@@ -1,14 +1,26 @@
+/* =========================================
+   WESTSYDE HERO
+   ========================================= */
+
 .ws-hero {
   padding: 76px 22px 64px;
 }
 
 .ws-hero__inner {
   position: relative;
+
   max-width: 1160px;
+
   margin: 0 auto;
+
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+  grid-template-columns:
+    minmax(0, 1.1fr)
+    minmax(280px, 0.9fr);
+
   gap: 48px;
+
   align-items: center;
 }
 
@@ -16,18 +28,25 @@
   min-width: 0;
 }
 
-/* Date */
+/* =========================================
+   DATE
+   ========================================= */
 
 .ws-hero__eyebrow {
   display: flex;
   align-items: center;
+
   gap: 10px;
+
   margin-bottom: 20px;
 }
 
 .ws-hero__eyebrow-line {
   height: 1px;
   width: 46px;
+
+  flex-shrink: 0;
+
   background: linear-gradient(
     90deg,
     transparent,
@@ -37,18 +56,31 @@
 
 .ws-hero__eyebrow span:last-child {
   font-size: 11px;
+
   letter-spacing: 0.3em;
+
   text-transform: uppercase;
+
   color: #e6c07a;
 }
 
-/* Heading */
+/* =========================================
+   HEADING
+   ========================================= */
 
 .ws-hero__title {
-  font-size: clamp(40px, 6.2vw, 74px);
+  font-size: clamp(
+    40px,
+    6.2vw,
+    74px
+  );
+
   line-height: 1.02;
+
   letter-spacing: -0.03em;
+
   margin: 0 0 18px;
+
   font-weight: 500;
 }
 
@@ -56,44 +88,72 @@
   color: #e6c07a;
 }
 
-/* Description */
+/* =========================================
+   DESCRIPTION
+   ========================================= */
 
 .ws-hero__description {
   font-size: 17px;
+
   line-height: 1.6;
+
   color: var(--color-neutral-300);
+
   max-width: 48ch;
+
   margin: 0 0 10px;
+
   text-wrap: pretty;
 }
 
 .ws-hero__subtext {
   font-size: 13px;
+
   color: var(--color-neutral-500);
+
   margin: 0 0 26px;
 }
 
-/* Countdown */
+/* =========================================
+   COUNTDOWN
+   ========================================= */
 
 .ws-hero__countdown {
-  display: flex;
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(70px, 86px));
+
   gap: 10px;
-  flex-wrap: wrap;
+
   margin-bottom: 28px;
 }
 
 .ws-countdown-box {
-  min-width: 86px;
-  padding: 12px 16px;
-  border: 1px solid var(--color-neutral-800);
+  min-width: 0;
+
+  padding: 12px 13px;
+
+  border: 1px solid
+    var(--color-neutral-800);
+
   border-radius: var(--radius-md);
-  background: rgba(35, 37, 50, 0.6);
+
+  background: rgba(
+    35,
+    37,
+    50,
+    0.6
+  );
 }
 
 .ws-countdown-value {
   font-size: 30px;
+
   font-weight: 600;
+
   letter-spacing: -0.02em;
+
   font-variant-numeric: tabular-nums;
 }
 
@@ -102,30 +162,49 @@
 }
 
 .ws-countdown-label {
-  font-size: 10px;
-  letter-spacing: 0.2em;
+  font-size: 9px;
+
+  letter-spacing: 0.16em;
+
   text-transform: uppercase;
+
   color: var(--color-neutral-500);
 }
 
-/* Buttons */
+/* =========================================
+   BUTTONS
+   ========================================= */
 
 .ws-hero__actions {
   display: flex;
+
   gap: 10px;
+
   flex-wrap: wrap;
 }
 
 .ws-hero__button {
   display: inline-flex;
+
   align-items: center;
+  justify-content: center;
+
   gap: 8px;
+
+  min-height: 44px;
+
   padding: 12px 22px;
+
   text-decoration: none;
+
   font-size: 13px;
+
   letter-spacing: 0.12em;
+
   text-transform: uppercase;
+
   border-radius: var(--radius-md);
+
   transition:
     background 180ms ease,
     color 180ms ease,
@@ -133,57 +212,89 @@
 }
 
 .ws-hero__button--primary {
-  border: 1px solid var(--color-accent);
+  border: 1px solid
+    var(--color-accent);
+
   color: var(--color-accent-300);
 }
 
 .ws-hero__button--primary:hover {
   background: var(--color-accent-900);
+
   color: var(--color-accent-200);
 }
 
 .ws-hero__button--secondary {
-  border: 1px solid var(--color-neutral-800);
+  border: 1px solid
+    var(--color-neutral-800);
+
   color: var(--color-neutral-300);
 }
 
 .ws-hero__button--secondary:hover {
-  border-color: var(--color-neutral-600);
+  border-color:
+    var(--color-neutral-600);
+
   color: var(--color-text);
 }
 
-/* Crest */
+/* =========================================
+   CREST
+   ========================================= */
 
 .ws-hero__visual {
   min-width: 0;
+
   display: flex;
+
   justify-content: center;
+
+  align-items: center;
 }
 
 .ws-hero__crest-wrap {
   position: relative;
+
   width: 100%;
+
   max-width: 360px;
 }
 
 .ws-hero__glow {
   position: absolute;
+
   inset: 8%;
+
   border-radius: 50%;
+
   background: radial-gradient(
     circle,
-    rgba(230, 192, 122, 0.26),
+    rgba(
+      230,
+      192,
+      122,
+      0.26
+    ),
     transparent 68%
   );
-  animation: ws-glow 5s ease-in-out infinite;
+
+  animation:
+    ws-glow 5s ease-in-out infinite;
 }
 
 .ws-hero__crest {
   position: relative;
+
   width: 100%;
+
   border-radius: var(--radius-lg);
+
   display: block;
 }
+
+/* =========================================
+   GLOW
+   ========================================= */
 
 @keyframes ws-glow {
   0%,
@@ -198,26 +309,287 @@
   }
 }
 
-/* Mobile */
+/* =========================================
+   TABLET
+   ========================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .ws-hero {
-    padding: 58px 22px 52px;
+    padding: 64px 20px 56px;
   }
 
   .ws-hero__inner {
-    gap: 42px;
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(240px, 0.75fr);
+
+    gap: 32px;
   }
 
-  .ws-hero__visual {
-    order: -1;
+  .ws-hero__description {
+    font-size: 16px;
   }
 
   .ws-hero__crest-wrap {
     max-width: 300px;
   }
+}/* =========================================
+   MOBILE HERO
+========================================= */
+
+@media (max-width: 700px) {
+  .ws-hero {
+    padding: 48px 20px 56px;
+    overflow: hidden;
+  }
+
+  .ws-hero__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 100%;
+  }
+
+  /* Crest ABOVE the text */
+  .ws-hero__visual {
+    order: -1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto 24px;
+  }
+
+  .ws-hero__crest-wrap {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ws-hero__crest {
+    position: relative;
+    z-index: 2;
+    width: 125px;
+    height: 125px;
+    object-fit: contain;
+  }
+
+  .ws-hero__glow {
+    width: 150px;
+    height: 150px;
+  }
+
+  .ws-hero__content {
+    width: 100%;
+    text-align: left;
+  }
+
+  .ws-hero__eyebrow {
+    margin-bottom: 16px;
+  }
+
+  .ws-hero__title {
+    font-size: clamp(42px, 12vw, 58px);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    margin-bottom: 18px;
+  }
 
   .ws-hero__description {
-    font-size: 16px;
+    max-width: none;
+    font-size: 15px;
+    line-height: 1.65;
+    margin-bottom: 10px;
+  }
+
+  .ws-hero__subtext {
+    font-size: 12px;
+    margin-bottom: 24px;
+  }
+
+  /* Countdown: 2 x 2 */
+  .ws-hero__countdown {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
+    max-width: 330px;
+    margin-bottom: 24px;
+  }
+
+  .ws-hero__countdown-box {
+    min-width: 0;
+    padding: 11px 8px;
+  }
+
+  /* Buttons */
+  .ws-hero__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .ws-hero__button {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media (max-width: 430px) {
+  .ws-hero {
+    padding: 38px 18px 48px;
+  }
+
+  .ws-hero__visual {
+    margin-bottom: 18px;
+  }
+
+  .ws-hero__crest-wrap {
+    width: 120px;
+    height: 120px;
+  }
+
+  .ws-hero__crest {
+    width: 100px;
+    height: 100px;
+  }
+
+  .ws-hero__glow {
+    width: 125px;
+    height: 125px;
+  }
+
+  .ws-hero__title {
+    font-size: 44px;
+  }
+
+  .ws-hero__description {
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .ws-hero__countdown {
+    max-width: 100%;
+  }
+}/* =========================================
+   MOBILE TITLE + CREST
+========================================= */
+
+.ws-hero__mobile-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.ws-hero__mobile-crest {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .ws-hero {
+    padding: 48px 20px 56px;
+  }
+
+  .ws-hero__inner {
+    display: block;
+  }
+
+  /* Don't show the old large visual on mobile */
+  .ws-hero__visual {
+    display: none;
+  }
+
+  .ws-hero__mobile-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 18px;
+  }
+
+  .ws-hero__title {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    font-size: clamp(40px, 11vw, 56px);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+  }
+
+  .ws-hero__mobile-crest {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 100px;
+    width: 100px;
+    height: 100px;
+  }
+
+  .ws-hero__mobile-crest img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .ws-hero__description {
+    max-width: none;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .ws-hero__countdown {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
+    max-width: 330px;
+  }
+
+  .ws-hero__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ws-hero__button {
+    width: 100%;
+  }
+}
+
+
+/* Smaller phones */
+@media (max-width: 430px) {
+  .ws-hero {
+    padding: 38px 18px 48px;
+  }
+
+  .ws-hero__mobile-title {
+    gap: 8px;
+  }
+
+  .ws-hero__title {
+    font-size: 42px;
+  }
+
+  .ws-hero__mobile-crest {
+    flex-basis: 78px;
+    width: 78px;
+    height: 78px;
+  }
+
+  .ws-hero__description {
+    font-size: 14px;
   }
 }

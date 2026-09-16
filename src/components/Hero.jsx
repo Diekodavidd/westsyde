@@ -27,11 +27,20 @@ function Hero({
           </div>
 
           {/* Heading */}
-          <h1 className="ws-hero__title">
-            One year of
-            <br />
-            <span>WestSyde</span>
-          </h1>
+          <div className="ws-hero__mobile-title">
+  <h1 className="ws-hero__title">
+    One year of<br />
+    <span>WestSyde</span>
+  </h1>
+
+  <div className="ws-hero__mobile-crest">
+    <img
+      src="https://res.cloudinary.com/zy7u4nqi/image/upload/v1789511694/WhatsApp_Image_2026-09-15_at_22.40.05_crprfu.jpg"
+      alt="WestSyde gold dragon crest"
+      className="lighten"
+    />
+  </div>
+</div>
 
           {/* Description */}
           <p className="ws-hero__description">
