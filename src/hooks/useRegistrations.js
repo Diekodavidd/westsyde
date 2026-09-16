@@ -2,7 +2,22 @@ import { useCallback, useEffect, useState } from "react";
 
 import { games } from "../data/games";
 
-const STORAGE_KEY = "westsyde_regs_v1";
+/*
+ * ------------------------------------------
+ * API
+ * ------------------------------------------
+ */
+
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  "http://localhost:5000/api/registrations";
+
+
+/*
+ * ------------------------------------------
+ * DEFAULTS
+ * ------------------------------------------
+ */
 
 const DEFAULT_CAPACITY = 12;
 const DEFAULT_SEATS = 10;
@@ -10,8 +25,17 @@ const DEFAULT_GROUPS = 1;
 const DEFAULT_RESERVES = 2;
 const DEFAULT_MAX_GAMES_PER_PERSON = 2;
 
+
+/*
+ * ------------------------------------------
+ * GAME CONFIG
+ * ------------------------------------------
+ */
+
 function getGameConfig(gameId) {
-  const game = games.find((item) => item.id === gameId);
+  const game = games.find(
+    (item) => item.id === gameId
+  );
 
   if (!game) {
     return {
@@ -22,8 +46,13 @@ function getGameConfig(gameId) {
     };
   }
 
-  const groups = game.groups || DEFAULT_GROUPS;
-  const seatsPerGroup = game.seatsPerGroup || DEFAULT_SEATS;
+  const groups =
+    game.groups || DEFAULT_GROUPS;
+
+  const seatsPerGroup =
+    game.seatsPerGroup ||
+    DEFAULT_SEATS;
+
   const reserves =
     typeof game.reserves === "number"
       ? game.reserves
@@ -33,317 +62,565 @@ function getGameConfig(gameId) {
     groups,
     seatsPerGroup,
     reserves,
-    capacity: groups * seatsPerGroup + reserves,
+    capacity:
+      groups * seatsPerGroup +
+      reserves,
   };
 }
 
+
+/*
+ * ------------------------------------------
+ * HOOK
+ * ------------------------------------------
+ */
+
 function useRegistrations({
-  maxGamesPerPerson = DEFAULT_MAX_GAMES_PER_PERSON,
+  maxGamesPerPerson =
+    DEFAULT_MAX_GAMES_PER_PERSON,
 } = {}) {
-  const [registrations, setRegistrations] = useState({});
-  const [loaded, setLoaded] = useState(false);
+  const [registrations, setRegistrations] =
+    useState({});
+
+  const [loaded, setLoaded] =
+    useState(false);
+
+  const [loading, setLoading] =
+    useState(false);
+
+  const [error, setError] =
+    useState("");
+
+
+  /*
+   * ----------------------------------------
+   * FETCH ALL REGISTRATIONS
+   * ----------------------------------------
+   */
+
+  const fetchRegistrations =
+    useCallback(async () => {
+      try {
+        setLoading(true);
+        setError("");
+
+        const response =
+          await fetch(API_URL);
+
+        const data =
+          await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(
+            data.error ||
+              "Unable to fetch registrations."
+          );
+        }
+
+        setRegistrations(
+          data.registrations || {}
+        );
+      } catch (err) {
+        console.error(
+          "Fetch registrations error:",
+          err
+        );
+
+        setError(
+          err.message ||
+            "Unable to load registrations."
+        );
+      } finally {
+        setLoading(false);
+        setLoaded(true);
+      }
+    }, []);
+
+
+  /*
+   * ----------------------------------------
+   * INITIAL LOAD
+   * ----------------------------------------
+   */
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+    fetchRegistrations();
+  }, [fetchRegistrations]);
 
-      if (raw) {
-        setRegistrations(JSON.parse(raw) || {});
-      }
-    } catch {
-      setRegistrations({});
-    } finally {
-      setLoaded(true);
-    }
-  }, []);
 
-  const saveRegistrations = useCallback((nextRegistrations) => {
-    setRegistrations(nextRegistrations);
+  /*
+   * ----------------------------------------
+   * GET GAME REGISTRATIONS
+   * ----------------------------------------
+   */
 
-    try {
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(nextRegistrations)
-      );
-    } catch {
-      // Keep the in-memory state even if localStorage fails.
-    }
-  }, []);
+  const getGameRegistrations =
+    useCallback(
+      (gameId) => {
+        return (
+          registrations[gameId] || []
+        );
+      },
+      [registrations]
+    );
 
-  const getGameRegistrations = useCallback(
-    (gameId) => {
-      return registrations[gameId] || [];
-    },
-    [registrations]
-  );
+
+  /*
+   * ----------------------------------------
+   * REGISTER
+   * ----------------------------------------
+   *
+   * IMPORTANT:
+   *
+   * Seat assignment is NOT done here.
+   *
+   * The backend decides:
+   * - group
+   * - seat
+   * - reserve
+   *
+   * This prevents each browser from
+   * creating its own separate registration
+   * state.
+   */
 
   const register = useCallback(
-    ({ gameId, name, gender }) => {
-      const trimmedName = (name || "").trim();
+    async ({
+      gameId,
+      name,
+      gender,
+    }) => {
+      const trimmedName =
+        (name || "").trim();
 
       if (trimmedName.length < 2) {
         return {
           success: false,
-          error: "Enter your Bigo name or ID.",
+          error:
+            "Enter your Bigo name or ID.",
         };
       }
 
       if (!gender) {
         return {
           success: false,
-          error: "Select your gender.",
+          error:
+            "Select your gender.",
         };
       }
 
-      const config = getGameConfig(gameId);
+      try {
+        setLoading(true);
+        setError("");
 
-      const nextRegistrations = JSON.parse(
-        JSON.stringify(registrations || {})
-      );
+        const response =
+          await fetch(API_URL, {
+            method: "POST",
 
-      const list = nextRegistrations[gameId] || [];
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
 
-      /*
-       * Total capacity:
-       *
-       * Normal game:
-       * 1 × 10 seats + 2 reserves = 12
-       *
-       * Special game:
-       * 2 × 10 seats + 2 reserves = 22
-       */
-      if (list.length >= config.capacity) {
-        return {
-          success: false,
-          error: "This game is full. Try another one.",
-        };
-      }
+            body: JSON.stringify({
+              gameId,
+              name: trimmedName,
+              gender,
+            }),
+          });
 
-      const key = trimmedName.toLowerCase();
+        const data =
+          await response.json();
 
-      const alreadyOnPanel = list.some(
-        (entry) => entry.name.toLowerCase() === key
-      );
-
-      if (alreadyOnPanel) {
-        return {
-          success: false,
-          error: "You are already on this panel.",
-        };
-      }
-
-      /*
-       * Count how many different games this player
-       * has already registered for.
-       */
-      const gameCount = Object.keys(nextRegistrations).filter(
-        (id) =>
-          (nextRegistrations[id] || []).some(
-            (entry) => entry.name.toLowerCase() === key
-          )
-      ).length;
-
-      if (gameCount >= maxGamesPerPerson) {
-        return {
-          success: false,
-          error: `You already hold seats in ${maxGamesPerPerson} games — that is the limit.`,
-        };
-      }
-
-      /*
-       * ------------------------------------------------
-       * GROUP ASSIGNMENT
-       * ------------------------------------------------
-       *
-       * Special games:
-       *
-       * Group 1 → seats 1-10
-       * Group 2 → seats 1-10
-       * Reserves → R1-R2
-       *
-       * Players are automatically placed into the first
-       * group with an available seat.
-       */
-      const regularPlayers = list.filter(
-        (entry) => !entry.reserve
-      );
-
-      let group = null;
-      let seat = null;
-      let isReserve = false;
-
-      /*
-       * Find the first group that still has space.
-       */
-      for (
-        let currentGroup = 1;
-        currentGroup <= config.groups;
-        currentGroup += 1
-      ) {
-        const groupPlayers = regularPlayers.filter(
-          (entry) =>
-            (entry.group || 1) === currentGroup
-        );
-
-        if (groupPlayers.length < config.seatsPerGroup) {
-          const takenSeats = groupPlayers.map(
-            (entry) => entry.seat
-          );
-
-          const freeSeats = [];
-
-          for (
-            let currentSeat = 1;
-            currentSeat <= config.seatsPerGroup;
-            currentSeat += 1
-          ) {
-            if (!takenSeats.includes(currentSeat)) {
-              freeSeats.push(currentSeat);
-            }
-          }
-
-          if (freeSeats.length > 0) {
-            group = currentGroup;
-
-            seat =
-              freeSeats[
-                Math.floor(
-                  Math.random() * freeSeats.length
-                )
-              ];
-
-            break;
-          }
+        /*
+         * Backend rejected registration.
+         */
+        if (!response.ok || !data.success) {
+          return {
+            success: false,
+            error:
+              data.error ||
+              "Unable to complete registration.",
+          };
         }
-      }
 
-      /*
-       * If every group is full, assign a reserve slot.
-       */
-      if (group === null) {
-        isReserve = true;
-        group = null;
+        /*
+         * Add the newly created
+         * registration immediately.
+         */
+        const entry = data.entry;
 
-        const reservePlayers = list.filter(
-          (entry) => entry.reserve
+        setRegistrations(
+          (current) => {
+            const currentGame =
+              current[gameId] || [];
+
+            return {
+              ...current,
+
+              [gameId]: [
+                ...currentGame,
+                entry,
+              ],
+            };
+          }
         );
 
-        seat = reservePlayers.length + 1;
+        return {
+          success: true,
+          entry,
+        };
+      } catch (err) {
+        console.error(
+          "Registration error:",
+          err
+        );
+
+        return {
+          success: false,
+          error:
+            "Unable to connect to the registration server. Please try again.",
+        };
+      } finally {
+        setLoading(false);
       }
-
-      const entry = {
-        name: trimmedName,
-        gender,
-        group,
-        seat,
-        reserve: isReserve,
-        ts: Date.now(),
-      };
-
-      nextRegistrations[gameId] = [...list, entry];
-
-      saveRegistrations(nextRegistrations);
-
-      return {
-        success: true,
-        entry,
-      };
     },
-    [
-      registrations,
-      maxGamesPerPerson,
-      saveRegistrations,
-    ]
+    []
   );
+
+
+  /*
+   * ----------------------------------------
+   * REMOVE ONE REGISTRATION
+   * ----------------------------------------
+   */
 
   const remove = useCallback(
-    (gameId, timestamp) => {
-      const nextRegistrations = JSON.parse(
-        JSON.stringify(registrations || {})
-      );
+    async (
+      gameId,
+      timestamp
+    ) => {
+      try {
+        setLoading(true);
+        setError("");
 
-      nextRegistrations[gameId] = (
-        nextRegistrations[gameId] || []
-      ).filter((entry) => entry.ts !== timestamp);
+        const response =
+          await fetch(
+            `${API_URL}/${gameId}/${timestamp}`,
+            {
+              method: "DELETE",
+            }
+          );
 
-      saveRegistrations(nextRegistrations);
+        const data =
+          await response.json();
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
+          throw new Error(
+            data.error ||
+              "Unable to remove registration."
+          );
+        }
+
+        /*
+         * Remove from local React state.
+         *
+         * This is NOT localStorage.
+         * It is simply keeping the current
+         * UI synchronized with MongoDB.
+         */
+        setRegistrations(
+          (current) => ({
+            ...current,
+
+            [gameId]: (
+              current[gameId] || []
+            ).filter(
+              (entry) =>
+                entry.ts !==
+                Number(timestamp)
+            ),
+          })
+        );
+
+        return {
+          success: true,
+        };
+      } catch (err) {
+        console.error(
+          "Remove registration error:",
+          err
+        );
+
+        setError(
+          err.message ||
+            "Unable to remove registration."
+        );
+
+        /*
+         * Refresh from MongoDB in case
+         * the UI and database became
+         * out of sync.
+         */
+        await fetchRegistrations();
+
+        return {
+          success: false,
+          error:
+            err.message ||
+            "Unable to remove registration.",
+        };
+      } finally {
+        setLoading(false);
+      }
     },
-    [registrations, saveRegistrations]
+    [fetchRegistrations]
   );
 
-  const clearAll = useCallback(() => {
-    saveRegistrations({});
-  }, [saveRegistrations]);
 
-  const getSeatCount = useCallback(
-    (gameId) => {
-      const config = getGameConfig(gameId);
-      const list = registrations[gameId] || [];
+  /*
+   * ----------------------------------------
+   * CLEAR ALL REGISTRATIONS
+   * ----------------------------------------
+   */
 
-      return Math.min(
-        list.filter((entry) => !entry.reserve).length,
-        config.groups * config.seatsPerGroup
-      );
+  const clearAll = useCallback(
+    async () => {
+      try {
+        setLoading(true);
+        setError("");
+
+        const response =
+          await fetch(API_URL, {
+            method: "DELETE",
+          });
+
+        const data =
+          await response.json();
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
+          throw new Error(
+            data.error ||
+              "Unable to clear registrations."
+          );
+        }
+
+        setRegistrations({});
+
+        return {
+          success: true,
+        };
+      } catch (err) {
+        console.error(
+          "Clear registrations error:",
+          err
+        );
+
+        setError(
+          err.message ||
+            "Unable to clear registrations."
+        );
+
+        return {
+          success: false,
+          error:
+            err.message ||
+            "Unable to clear registrations.",
+        };
+      } finally {
+        setLoading(false);
+      }
     },
-    [registrations]
+    []
   );
 
-  const getReserveCount = useCallback(
-    (gameId) => {
-      const list = registrations[gameId] || [];
 
-      return list.filter((entry) => entry.reserve).length;
-    },
-    [registrations]
-  );
+  /*
+   * ----------------------------------------
+   * SEAT COUNT
+   * ----------------------------------------
+   */
 
-  const getOpenSeats = useCallback(
-    (gameId) => {
-      const config = getGameConfig(gameId);
+  const getSeatCount =
+    useCallback(
+      (gameId) => {
+        const config =
+          getGameConfig(gameId);
 
-      return (
-        config.groups * config.seatsPerGroup -
-        getSeatCount(gameId)
-      );
-    },
-    [getSeatCount]
-  );
+        const list =
+          registrations[gameId] || [];
 
-  const isFull = useCallback(
-    (gameId) => {
-      const config = getGameConfig(gameId);
+        return Math.min(
+          list.filter(
+            (entry) =>
+              !entry.reserve
+          ).length,
 
-      return (
-        getGameRegistrations(gameId).length >=
-        config.capacity
-      );
-    },
-    [getGameRegistrations]
-  );
+          config.groups *
+            config.seatsPerGroup
+        );
+      },
+      [registrations]
+    );
 
-  const getGameCapacity = useCallback((gameId) => {
-    return getGameConfig(gameId).capacity;
-  }, []);
 
-  const getGameGroups = useCallback((gameId) => {
-    return getGameConfig(gameId).groups;
-  }, []);
+  /*
+   * ----------------------------------------
+   * RESERVE COUNT
+   * ----------------------------------------
+   */
 
-  const getSeatsPerGroup = useCallback((gameId) => {
-    return getGameConfig(gameId).seatsPerGroup;
-  }, []);
+  const getReserveCount =
+    useCallback(
+      (gameId) => {
+        const list =
+          registrations[gameId] || [];
 
-  const getReserveCapacity = useCallback((gameId) => {
-    return getGameConfig(gameId).reserves;
-  }, []);
+        return list.filter(
+          (entry) =>
+            entry.reserve
+        ).length;
+      },
+      [registrations]
+    );
+
+
+  /*
+   * ----------------------------------------
+   * OPEN SEATS
+   * ----------------------------------------
+   */
+
+  const getOpenSeats =
+    useCallback(
+      (gameId) => {
+        const config =
+          getGameConfig(gameId);
+
+        return (
+          config.groups *
+            config.seatsPerGroup -
+          getSeatCount(gameId)
+        );
+      },
+      [getSeatCount]
+    );
+
+
+  /*
+   * ----------------------------------------
+   * IS FULL
+   * ----------------------------------------
+   */
+
+  const isFull =
+    useCallback(
+      (gameId) => {
+        const config =
+          getGameConfig(gameId);
+
+        return (
+          getGameRegistrations(
+            gameId
+          ).length >=
+          config.capacity
+        );
+      },
+      [getGameRegistrations]
+    );
+
+
+  /*
+   * ----------------------------------------
+   * GAME CAPACITY
+   * ----------------------------------------
+   */
+
+  const getGameCapacity =
+    useCallback(
+      (gameId) => {
+        return getGameConfig(
+          gameId
+        ).capacity;
+      },
+      []
+    );
+
+
+  /*
+   * ----------------------------------------
+   * GAME GROUPS
+   * ----------------------------------------
+   */
+
+  const getGameGroups =
+    useCallback(
+      (gameId) => {
+        return getGameConfig(
+          gameId
+        ).groups;
+      },
+      []
+    );
+
+
+  /*
+   * ----------------------------------------
+   * SEATS PER GROUP
+   * ----------------------------------------
+   */
+
+  const getSeatsPerGroup =
+    useCallback(
+      (gameId) => {
+        return getGameConfig(
+          gameId
+        ).seatsPerGroup;
+      },
+      []
+    );
+
+
+  /*
+   * ----------------------------------------
+   * RESERVE CAPACITY
+   * ----------------------------------------
+   */
+
+  const getReserveCapacity =
+    useCallback(
+      (gameId) => {
+        return getGameConfig(
+          gameId
+        ).reserves;
+      },
+      []
+    );
+
+
+  /*
+   * ----------------------------------------
+   * RETURN
+   * ----------------------------------------
+   */
 
   return {
     registrations,
     loaded,
+    loading,
+    error,
 
     register,
     remove,
     clearAll,
+
+    fetchRegistrations,
 
     getGameRegistrations,
     getSeatCount,
@@ -356,8 +633,12 @@ function useRegistrations({
     getSeatsPerGroup,
     getReserveCapacity,
 
-    seatsPerGame: DEFAULT_SEATS,
-    capPerGame: DEFAULT_CAPACITY,
+    seatsPerGame:
+      DEFAULT_SEATS,
+
+    capPerGame:
+      DEFAULT_CAPACITY,
+
     maxGamesPerPerson,
   };
 }

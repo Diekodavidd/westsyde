@@ -136,26 +136,26 @@ function App() {
     setResult(null);
   };
 
-  const submitRegistration = () => {
-    if (!modalGame) {
-      return;
-    }
+  const submitRegistration = async () => {
+  if (!modalGame) {
+    return;
+  }
 
-    const response = register({
-      gameId: modalGame.id,
-      name: formName,
-      gender: formGender,
-    });
+  const response = await register({
+    gameId: modalGame.id,
+    name: formName,
+    gender: formGender,
+  });
 
-    if (!response.success) {
-      setError(response.error);
-      return;
-    }
+  if (!response.success) {
+    setError(response.error);
+    return;
+  }
 
-    setError("");
-    setResult(response.entry);
-    setModalMode("result");
-  };
+  setError("");
+  setResult(response.entry);
+  setModalMode("result");
+};
 
   /*
    * ------------------------------------------
@@ -655,45 +655,47 @@ function App() {
         }
       >
         {modalMode === "form" && (
-          <RegistrationForm
-            formName={formName}
-            maleLabel={
-              formGender === "Male"
-                ? "✓ Male"
-                : "Male"
-            }
-            femaleLabel={
-              formGender === "Female"
-                ? "✓ Female"
-                : "Female"
-            }
-            onNameChange={(
-              event
-            ) => {
-              setFormName(
-                event.target.value
-              );
-              setError("");
-            }}
-            pickMale={() => {
-              setFormGender(
-                "Male"
-              );
-              setError("");
-            }}
-            pickFemale={() => {
-              setFormGender(
-                "Female"
-              );
-              setError("");
-            }}
-            submitReg={
-              submitRegistration
-            }
-            hasError={!!error}
-            errorText={error}
-          />
-        )}
+  <RegistrationForm
+    formName={formName}
+    maleLabel={
+      formGender === "Male"
+        ? "✓ Male"
+        : "Male"
+    }
+    femaleLabel={
+      formGender === "Female"
+        ? "✓ Female"
+        : "Female"
+    }
+    onNameChange={(event) => {
+      setFormName(event.target.value);
+      setError("");
+    }}
+    pickMale={() => {
+      setFormGender("Male");
+      setError("");
+    }}
+    pickFemale={() => {
+      setFormGender("Female");
+      setError("");
+    }}
+    submitReg={submitRegistration}
+    hasError={!!error}
+    errorText={error}
+    isReserveMode={
+      registeredCount >=
+        modalGameConfig.playerCapacity &&
+      reserveCount <
+        modalGameConfig.reserveCapacity
+    }
+    isGameFull={
+      registeredCount >=
+        modalGameConfig.playerCapacity &&
+      reserveCount >=
+        modalGameConfig.reserveCapacity
+    }
+  />
+)}
 
         {modalMode === "result" &&
           result && (
