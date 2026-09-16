@@ -1,0 +1,31 @@
+.ws-stats {
+  border-top: 1px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-divider);
+  background: rgba(35, 37, 50, 0.35);
+}
+
+.ws-stats__inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 22px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 18px;
+}
+
+.ws-stats__item {
+  min-width: 0;
+}
+
+.ws-stats__value {
+  font-size: 26px;
+  font-weight: 600;
+  color: #e6c07a;
+}
+
+.ws-stats__label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-neutral-500);
+}

@@ -1,0 +1,312 @@
+.ws-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+.ws-modal {
+  width: 100%;
+  max-width: 560px;
+  max-height: calc(100vh - 44px);
+  overflow-y: auto;
+  background: #161826;
+  border: 1px solid var(--color-neutral-800);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+
+.ws-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 24px 18px;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.ws-modal__kicker {
+  margin-bottom: 7px;
+  color: #e6c07a;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.ws-modal__header h2 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
+
+.ws-modal__blurb {
+  max-width: 52ch;
+  margin: 10px 0 0;
+  color: var(--color-neutral-400);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.ws-modal__close {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid var(--color-neutral-800);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-neutral-400);
+  font-size: 23px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.ws-modal__close:hover {
+  color: var(--color-text);
+  border-color: var(--color-neutral-600);
+}
+
+.ws-modal__body {
+  padding: 24px;
+}
+
+@media (max-width: 576px) {
+  .ws-modal-backdrop {
+    padding: 12px;
+    align-items: flex-end;
+  }
+
+  .ws-modal {
+    max-height: calc(100vh - 24px);
+    border-radius: var(--radius-lg);
+  }
+
+  .ws-modal__header {
+    padding: 20px 18px 16px;
+  }
+
+  .ws-modal__body {
+    padding: 18px;
+  }
+}
+
+.ws-registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ws-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ws-form-field label {
+  color: var(--color-neutral-300);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ws-form-field input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-neutral-800);
+  border-radius: var(--radius-md);
+  outline: none;
+  background: rgba(13, 15, 22, 0.8);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+
+.ws-form-field input::placeholder {
+  color: var(--color-neutral-600);
+}
+
+.ws-form-field input:focus {
+  border-color: var(--color-accent);
+}
+
+.ws-gender-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.ws-gender-button {
+  padding: 12px 14px;
+  border: 1px solid var(--color-neutral-800);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-neutral-400);
+  font-family: var(--font-body);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.ws-gender-button:hover {
+  border-color: var(--color-neutral-600);
+  color: var(--color-text);
+}
+
+.ws-form-error {
+  padding: 11px 13px;
+  border: 1px solid rgba(230, 192, 122, 0.35);
+  border-radius: var(--radius-md);
+  background: rgba(230, 192, 122, 0.06);
+  color: #e6c07a;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.ws-registration-submit {
+  width: 100%;
+  padding: 12px 20px;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-accent-300);
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.ws-registration-submit:hover {
+  background: var(--color-accent-900);
+}
+.ws-registration-result__seat {
+  margin: 18px 0;
+  padding: 22px;
+  border: 1px solid var(--color-accent-700);
+  border-radius: var(--radius-md);
+  background: var(--color-accent-900);
+  text-align: center;
+}
+
+.ws-registration-result__kicker {
+  margin-bottom: 8px;
+  color: var(--color-accent-300);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.ws-registration-result__number {
+  color: #e6c07a;
+  font-size: 44px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.ws-registration-result__body {
+  margin: 0 0 18px;
+  color: var(--color-neutral-300);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.ws-registration-result__button {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid var(--color-neutral-700);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-neutral-300);
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.ws-registration-result__button:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent-300);
+}
+.ws-game-roster__summary {
+  margin: 10px 0 14px;
+  color: var(--color-neutral-400);
+  font-size: 13px;
+}
+
+.ws-game-roster__list {
+  width: 100%;
+}
+
+.ws-game-roster__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 0;
+  border-top: 1px solid var(--color-divider);
+  font-size: 13px;
+}
+
+.ws-game-roster__label {
+  min-width: 56px;
+  color: #e6c07a;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ws-game-roster__name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--color-neutral-300);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ws-game-roster__gender {
+  color: var(--color-neutral-600);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ws-game-roster__close {
+  width: 100%;
+  margin-top: 20px;
+  padding: 13px;
+  border: 1px solid var(--color-neutral-700);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-neutral-300);
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.ws-game-roster__close:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent-300);
+}
+
+@media (max-width: 480px) {
+  .ws-game-roster__row {
+    gap: 8px;
+  }
+
+  .ws-game-roster__label {
+    min-width: 50px;
+  }
+
+  .ws-game-roster__gender {
+    font-size: 10px;
+  }
+}

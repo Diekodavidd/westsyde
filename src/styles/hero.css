@@ -1,0 +1,223 @@
+.ws-hero {
+  padding: 76px 22px 64px;
+}
+
+.ws-hero__inner {
+  position: relative;
+  max-width: 1160px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 48px;
+  align-items: center;
+}
+
+.ws-hero__content {
+  min-width: 0;
+}
+
+/* Date */
+
+.ws-hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.ws-hero__eyebrow-line {
+  height: 1px;
+  width: 46px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #e6c07a
+  );
+}
+
+.ws-hero__eyebrow span:last-child {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #e6c07a;
+}
+
+/* Heading */
+
+.ws-hero__title {
+  font-size: clamp(40px, 6.2vw, 74px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  margin: 0 0 18px;
+  font-weight: 500;
+}
+
+.ws-hero__title span {
+  color: #e6c07a;
+}
+
+/* Description */
+
+.ws-hero__description {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--color-neutral-300);
+  max-width: 48ch;
+  margin: 0 0 10px;
+  text-wrap: pretty;
+}
+
+.ws-hero__subtext {
+  font-size: 13px;
+  color: var(--color-neutral-500);
+  margin: 0 0 26px;
+}
+
+/* Countdown */
+
+.ws-hero__countdown {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.ws-countdown-box {
+  min-width: 86px;
+  padding: 12px 16px;
+  border: 1px solid var(--color-neutral-800);
+  border-radius: var(--radius-md);
+  background: rgba(35, 37, 50, 0.6);
+}
+
+.ws-countdown-value {
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ws-countdown-value--seconds {
+  color: #e6c07a;
+}
+
+.ws-countdown-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-neutral-500);
+}
+
+/* Buttons */
+
+.ws-hero__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ws-hero__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: var(--radius-md);
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+.ws-hero__button--primary {
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent-300);
+}
+
+.ws-hero__button--primary:hover {
+  background: var(--color-accent-900);
+  color: var(--color-accent-200);
+}
+
+.ws-hero__button--secondary {
+  border: 1px solid var(--color-neutral-800);
+  color: var(--color-neutral-300);
+}
+
+.ws-hero__button--secondary:hover {
+  border-color: var(--color-neutral-600);
+  color: var(--color-text);
+}
+
+/* Crest */
+
+.ws-hero__visual {
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.ws-hero__crest-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+}
+
+.ws-hero__glow {
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(230, 192, 122, 0.26),
+    transparent 68%
+  );
+  animation: ws-glow 5s ease-in-out infinite;
+}
+
+.ws-hero__crest {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  display: block;
+}
+
+@keyframes ws-glow {
+  0%,
+  100% {
+    transform: scale(0.96);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+  .ws-hero {
+    padding: 58px 22px 52px;
+  }
+
+  .ws-hero__inner {
+    gap: 42px;
+  }
+
+  .ws-hero__visual {
+    order: -1;
+  }
+
+  .ws-hero__crest-wrap {
+    max-width: 300px;
+  }
+
+  .ws-hero__description {
+    font-size: 16px;
+  }
+}

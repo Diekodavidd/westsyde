@@ -1,0 +1,488 @@
+/* ========================================
+   GAME DAY / FLOW
+======================================== */
+
+.ws-flow {
+  padding: 74px 22px;
+  background: rgba(35, 37, 50, 0.3);
+  border-top: 1px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-divider);
+  scroll-margin-top: 70px;
+}
+
+.ws-flow__inner {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+/* Heading */
+
+.ws-flow__heading h6 {
+  color: #e6c07a;
+  margin: 0 0 8px;
+}
+
+.ws-flow__heading h2 {
+  font-size: clamp(28px, 4vw, 42px);
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+}
+
+.ws-flow__heading p {
+  color: var(--color-neutral-400);
+  max-width: 62ch;
+  margin: 0 0 34px;
+  text-wrap: pretty;
+}
+
+/* Cards */
+
+.ws-flow__grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  );
+  gap: 14px;
+}
+
+.ws-flow__card {
+  padding: 18px;
+  border: 1px solid var(--color-neutral-800);
+  border-radius: var(--radius-md);
+  background: rgba(18, 20, 31, 0.6);
+}
+
+.ws-flow__number {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: #e6c07a;
+  margin-bottom: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ws-flow__card h4 {
+  font-size: 16px;
+  margin: 0 0 6px;
+}
+
+.ws-flow__card p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--color-neutral-400);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* Lock-in callout */
+
+.ws-flow__lock {
+  margin-top: 22px;
+  padding: 16px 20px;
+  border: 1px solid var(--color-accent-700);
+  border-radius: var(--radius-md);
+  background: var(--color-accent-900);
+
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ws-flow__lock-title {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent-200);
+}
+
+.ws-flow__lock-text {
+  font-size: 13px;
+  color: var(--color-accent-300);
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+  .ws-flow {
+    padding: 58px 22px;
+  }
+
+  .ws-flow__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ws-flow__lock {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+.ws-rules {
+  padding: 74px 22px;
+}
+
+.ws-rules__inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+}
+
+.ws-rules__intro {
+  min-width: 0;
+}
+
+.ws-rules__intro h6 {
+  color: #e6c07a;
+  margin: 0 0 8px;
+}
+
+.ws-rules__intro h2 {
+  font-size: clamp(26px, 3.4vw, 36px);
+  margin: 0 0 14px;
+  letter-spacing: -0.02em;
+}
+
+.ws-rules__intro p {
+  color: var(--color-neutral-400);
+  margin: 0;
+  max-width: 52ch;
+  text-wrap: pretty;
+}
+
+.ws-rules__list {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ws-rules__item {
+  display: flex;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.ws-rules__number {
+  font-size: 11px;
+  color: var(--color-neutral-600);
+  min-width: 22px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ws-rules__text {
+  font-size: 14px;
+  color: var(--color-neutral-300);
+  text-wrap: pretty;
+}
+.ws-story {
+  padding: 74px 22px;
+  border-top: 1px solid var(--color-divider);
+  background: rgba(35, 37, 50, 0.3);
+}
+
+.ws-story__inner {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.ws-story__heading h6 {
+  color: #e6c07a;
+  margin: 0 0 8px;
+}
+
+.ws-story__heading h2 {
+  font-size: clamp(28px, 4vw, 42px);
+  margin: 0 0 34px;
+  letter-spacing: -0.02em;
+}
+
+.ws-story__timeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0;
+}
+
+.ws-story__item {
+  padding: 20px 18px 0 0;
+  border-top: 1px solid var(--color-divider);
+  position: relative;
+}
+
+.ws-story__dot {
+  position: absolute;
+  top: -4px;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #e6c07a;
+}
+
+.ws-story__when {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #e6c07a;
+  margin-bottom: 8px;
+}
+
+.ws-story__item h4 {
+  font-size: 17px;
+  margin: 0 0 6px;
+}
+
+.ws-story__item p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--color-neutral-400);
+  margin: 0 0 22px;
+  text-wrap: pretty;
+}
+.ws-values {
+  padding: 74px 22px;
+}
+
+.ws-values__inner {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.ws-values__heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.ws-values__heading > div {
+  min-width: 0;
+}
+
+.ws-values__heading h6 {
+  color: #e6c07a;
+  margin: 0 0 8px;
+}
+
+.ws-values__heading h2 {
+  font-size: clamp(28px, 4vw, 42px);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.ws-values__heading p {
+  font-size: 13px;
+  color: var(--color-neutral-400);
+  max-width: 38ch;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.ws-values__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.ws-values__card {
+  padding: 18px;
+  border: 1px solid var(--color-neutral-800);
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    170deg,
+    rgba(35, 37, 50, 0.85),
+    rgba(18, 20, 31, 0.85)
+  );
+}
+
+.ws-values__letter {
+  font-size: 30px;
+  font-weight: 600;
+  color: #e6c07a;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.ws-values__word {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.ws-values__card p {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--color-neutral-400);
+  margin: 0;
+  text-wrap: pretty;
+}
+.ws-merch {
+  padding: 74px 22px;
+  border-top: 1px solid var(--color-divider);
+  background: rgba(35, 37, 50, 0.3);
+}
+
+.ws-merch__inner {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.ws-merch__heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 26px;
+}
+
+.ws-merch__heading > div {
+  min-width: 0;
+}
+
+.ws-merch__heading h6 {
+  color: #e6c07a;
+  margin: 0 0 8px;
+}
+
+.ws-merch__heading h2 {
+  font-size: clamp(28px, 4vw, 42px);
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+}
+
+.ws-merch__heading p {
+  color: var(--color-neutral-400);
+  max-width: 56ch;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.ws-merch__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.ws-merch__card {
+  border: 1px solid var(--color-neutral-800);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #0d0f16;
+}
+
+.ws-merch__card img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+}
+.ws-join {
+  padding: 74px 22px;
+}
+
+.ws-join__inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  align-items: center;
+}
+
+.ws-join__content {
+  min-width: 0;
+}
+
+.ws-join__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.ws-join__eyebrow img {
+  width: 44px;
+  height: auto;
+}
+
+.ws-join__eyebrow span {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-neutral-400);
+}
+
+.ws-join__content h2 {
+  font-size: clamp(26px, 3.4vw, 38px);
+  margin: 0 0 14px;
+  letter-spacing: -0.02em;
+}
+
+.ws-join__content p {
+  color: var(--color-neutral-400);
+  max-width: 52ch;
+  margin: 0 0 22px;
+  text-wrap: pretty;
+}
+
+.ws-join__button {
+  display: inline-flex;
+  padding: 12px 22px;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  color: var(--color-accent-300);
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ws-join__button:hover {
+  background: var(--color-accent-900);
+  color: var(--color-accent-300);
+}
+
+.ws-join__image {
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.ws-join__image img {
+  width: 100%;
+  max-width: 280px;
+  border-radius: var(--radius-lg);
+}
+
+.ws-footer {
+  border-top: 1px solid var(--color-divider);
+  padding: 30px 22px;
+}
+
+.ws-footer__inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ws-footer__brand {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #e6c07a;
+}
+
+.ws-footer__date {
+  font-size: 12px;
+  color: var(--color-neutral-600);
+}

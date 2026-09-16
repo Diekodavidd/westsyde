@@ -1,0 +1,260 @@
+/* =========================================
+   WESTSYDE NAVBAR
+   ========================================= */
+
+.ws-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+
+  width: 100%;
+
+  background: rgba(18, 20, 31, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.ws-navbar__inner {
+  width: 100%;
+  max-width: 1160px;
+
+  margin: 0 auto;
+  padding: 10px 22px;
+
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+
+/* =========================================
+   BRAND
+   ========================================= */
+
+.ws-navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  min-width: 0;
+
+  color: inherit;
+  text-decoration: none;
+}
+
+.ws-navbar__logo {
+  width: 34px;
+  height: 34px;
+
+  flex-shrink: 0;
+
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.ws-navbar__brand-text {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  line-height: 1.05;
+}
+
+.ws-navbar__name {
+  font-size: 14px;
+  font-weight: 600;
+
+  letter-spacing: 0.22em;
+
+  color: #e6c07a;
+}
+
+.ws-navbar__subtitle {
+  margin-top: 2px;
+
+  font-size: 9px;
+
+  letter-spacing: 0.18em;
+
+  color: var(--color-neutral-500);
+}
+
+
+/* =========================================
+   SPACER
+   ========================================= */
+
+.ws-navbar__spacer {
+  flex: 1;
+}
+
+
+/* =========================================
+   NAVIGATION
+   ========================================= */
+
+.ws-navbar__nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 4px;
+
+  flex-wrap: wrap;
+}
+
+.ws-navbar__link {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 7px 10px;
+
+  border-radius: var(--radius-sm);
+
+  color: var(--color-neutral-400);
+
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.ws-navbar__link:hover {
+  color: var(--color-text);
+
+  background: var(--color-neutral-900);
+}
+
+
+/* =========================================
+   GAME MASTER BUTTON
+   ========================================= */
+
+.ws-navbar__admin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  margin-left: 6px;
+  padding: 7px 12px;
+
+  border: 1px solid var(--color-neutral-800);
+  border-radius: var(--radius-sm);
+
+  background: transparent;
+
+  color: var(--color-neutral-300);
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.ws-navbar__admin:hover {
+  border-color: var(--color-accent);
+
+  color: var(--color-accent-300);
+
+  background: var(--color-accent-900);
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 768px) {
+  .ws-navbar__inner {
+    padding: 10px 16px;
+
+    gap: 12px;
+  }
+
+  .ws-navbar__nav {
+    gap: 2px;
+  }
+
+  .ws-navbar__link {
+    padding: 6px 8px;
+
+    font-size: 10px;
+  }
+
+  .ws-navbar__admin {
+    padding: 6px 9px;
+
+    font-size: 10px;
+  }
+}
+
+
+@media (max-width: 560px) {
+  .ws-navbar__inner {
+    align-items: flex-start;
+
+    flex-wrap: wrap;
+  }
+
+  .ws-navbar__brand {
+    flex: 1;
+  }
+
+  .ws-navbar__spacer {
+    display: none;
+  }
+
+  .ws-navbar__nav {
+    width: 100%;
+
+    justify-content: flex-start;
+
+    padding-top: 4px;
+  }
+
+  .ws-navbar__link {
+    padding: 7px 8px;
+  }
+
+  .ws-navbar__admin {
+    margin-left: auto;
+  }
+}
+
+
+@media (max-width: 380px) {
+  .ws-navbar__name {
+    font-size: 12px;
+  }
+
+  .ws-navbar__subtitle {
+    font-size: 8px;
+  }
+
+  .ws-navbar__link {
+    font-size: 9px;
+  }
+
+  .ws-navbar__admin {
+    font-size: 9px;
+  }
+}
